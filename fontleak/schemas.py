@@ -157,6 +157,10 @@ class LeakState(BaseModel):
     setup: BaseLeakSetupParams = Field(
         description="Setup parameters for the dynamic leak"
     )
+    parent: str = Field(
+        default="body",
+        description="Parent element (body or head)",
+    )
     browser: str = Field(
         default="all",
         description="Browser compatibility (all, chrome, firefox, safari)",
