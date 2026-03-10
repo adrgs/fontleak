@@ -115,6 +115,7 @@ async def index(request: Request, params: DynamicLeakSetupParams = Depends()):
                 prefix=params.prefix or "",
                 strip=params.strip,
                 length=params.length,
+                parent=params.parent,
             )
             params.id = new_id
 
@@ -148,6 +149,7 @@ async def index(request: Request, params: DynamicLeakSetupParams = Depends()):
             host_leak=settings.host_leak,
             leak_selector=params.selector,
             browser=state.browser,
+            parent=params.parent,
         )
         return Response(
             content=css,
@@ -168,6 +170,7 @@ async def index(request: Request, params: DynamicLeakSetupParams = Depends()):
             host_leak=settings.host_leak,
             leak_selector=params.selector,
             browser=state.browser,
+            parent=params.parent,
         )
         return Response(
             content=css,
@@ -189,6 +192,7 @@ async def index(request: Request, params: DynamicLeakSetupParams = Depends()):
             leak_selector=params.selector,
             browser=state.browser,
             length=state.length,
+            parent=params.parent,
         )
         return Response(content=css, media_type="text/css")
 
@@ -252,6 +256,7 @@ def generate_static_payload(
         host_leak=settings.host_leak,
         leak_selector=params.selector,
         browser=browser,
+        parent=params.parent,
     )
 
     return Response(

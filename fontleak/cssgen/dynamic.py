@@ -13,6 +13,7 @@ def generate(
     host_leak: str,
     leak_selector: str,
     browser: str,
+    parent: str = "body",
 ) -> str:
     if step > len(step_map):
         raise ValueError(
@@ -41,6 +42,7 @@ def generate(
         "host": host,
         "host_leak": host_leak,
         "browser": browser,
+        "parent": parent,
     }
 
     return template.render(**context)
@@ -74,6 +76,7 @@ def generate_sfc(
     leak_selector: str,
     browser: str,
     length: int,
+    parent: str = "body",
 ) -> str:
     html_width = length * (alphabet_size + 1) + 1
 
@@ -95,6 +98,7 @@ def generate_sfc(
         "host_leak": host_leak,
         "leak_selector": leak_selector,
         "browser": browser,
+        "parent": parent,
     }
 
     return template.render(**context)
@@ -111,6 +115,7 @@ def generate_anim(
     host_leak: str,
     leak_selector: str,
     browser: str,
+    parent: str = "body",
 ) -> str:
     if idx_max > len(step_map):
         raise ValueError(
@@ -138,6 +143,7 @@ def generate_anim(
         "host": host,
         "host_leak": host_leak,
         "browser": browser,
+        "parent": parent,
     }
 
     return template.render(**context)
